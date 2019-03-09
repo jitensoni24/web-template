@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.ViewResolver;
@@ -16,7 +17,10 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 
 @Configuration
 @ComponentScan("com.dtech.web.template")
+//This can also be named as spring config 
+//We can create another configuration file if we have our project specific bean definitions
 public class ApplicationConfig extends WebMvcConfigurationSupport {
+    
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
@@ -38,5 +42,12 @@ public class ApplicationConfig extends WebMvcConfigurationSupport {
 
         return internalResourceViewResolver;
     }
-
+    
+    @Bean
+    ResourceBundleMessageSource messageSource() {
+        ResourceBundleMessageSource ms = new ResourceBundleMessageSource();
+        ms.setBasenames("i18.messages", "i18.errors"); //this is same as i18/messages, messagesource treats `.` as /
+        ms.setDefaultEncoding("UTF-8");
+        return ms;
+    }
 }
