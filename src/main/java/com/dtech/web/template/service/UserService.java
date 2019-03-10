@@ -1,9 +1,15 @@
 package com.dtech.web.template.service;
 
-import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import com.dtech.web.template.exception.NotFoundException;
 import com.dtech.web.template.resource.UserResource;
@@ -13,11 +19,20 @@ import com.github.javafaker.Faker;
 public class UserService {
     
     Faker faker = new Faker();
+
+    @Autowired
+    private RestTemplate restTemplate;
+ 
+    @Value("${users.url}")
+    private String url;
     
     public List<UserResource> get() {
-        UserResource userResource = new UserResource();
-        userResource.setUsername(faker.name().firstName());
-        return Arrays.asList(userResource);
+        ResponseEntity<List<UserResource>> user =
+                restTemplate.exchange(url,
+                            HttpMethod.GET, null, new ParameterizedTypeReference<List<UserResource>>() {
+                    });
+        
+        return user.getStatusCode() == HttpStatus.OK ? user.getBody() : null;
     }
 
     public UserResource get(Long id) {

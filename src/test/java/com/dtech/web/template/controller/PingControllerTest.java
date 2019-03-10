@@ -1,7 +1,9 @@
 package com.dtech.web.template.controller;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.io.IOException;
@@ -26,7 +28,7 @@ public class PingControllerTest {
     @Before
     public void setUp() throws IOException {
         ReflectionTestUtils.setField(pingController, "projectVersion", "1.0");
-        ReflectionTestUtils.setField(pingController, "hostAddress", "localhost:8080");
+        ReflectionTestUtils.setField(pingController, "hostAddress", "localhost");
         
         mockMvc = MockMvcBuilders.standaloneSetup(pingController).build();
     }
@@ -35,6 +37,8 @@ public class PingControllerTest {
     public void testHome() throws Exception {
         mockMvc.perform(get("/"))
         .andDo(print())
+        .andExpect(jsonPath("$.ping", equalTo("http://localhost:8080/ping")))
+        .andExpect(jsonPath("$.version", equalTo("http://localhost:8080/version")))
         .andExpect(status().isOk())
         ;
     }
@@ -51,6 +55,7 @@ public class PingControllerTest {
     public void testVersion() throws Exception {
         mockMvc.perform(get("/version"))
         .andDo(print())
+        .andExpect(jsonPath("$.version", equalTo("1.0")))
         .andExpect(status().isOk())
         ;
     }
