@@ -2,26 +2,32 @@ package com.dtech.web.template.integration;
 
 import static org.springframework.test.web.client.ExpectedCount.once;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
-import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
+import static org.springframework.test.web.client.response.MockRestResponseCreators.withStatus;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
+import org.apache.commons.io.IOUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.client.MockRestServiceServer;
+import org.springframework.test.web.client.response.DefaultResponseCreator;
 import org.springframework.web.client.RestTemplate;
 
 import com.dtech.web.template.config.ApplicationConfig;
 import com.dtech.web.template.resource.UserResource;
 import com.dtech.web.template.service.UserService;
+import com.google.common.io.Resources;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { ApplicationConfig.class })
@@ -47,16 +53,29 @@ public class UserServiceTest {
 
     @Test
     public void testGetAll() throws Exception {
-        System.out.println("get all users test");
+        //what will json response look like (i.e http get/post, body, contenttype etc), use responsecreator to define that
+		DefaultResponseCreator response = withStatus(HttpStatus.OK)
+											.body(getResourceAsString("content/users.json").getBytes())
+											.contentType(MediaType.APPLICATION_JSON_UTF8);
+		
+        mockRestServer.expect(once(), requestTo(url)).andRespond(response);
 
-        //create the expectation and response of mock rest service server
-        mockRestServer.expect(once(), requestTo(url))
-        .andRespond(withSuccess("{message : 'under construction'}", MediaType.APPLICATION_JSON));
-
+        
         List<UserResource> result = userService.get();
-        System.out.println("results: : " + result);
+        result.forEach(System.out::println);
 
-        //finally verify to run the mrss 
+        
+        //finally verify 
+        mockRestServer.verify();
     }
+
+	private String getResourceAsString(String contentPath) {
+		try {
+			
+			return IOUtils.toString(Resources.getResource(contentPath), StandardCharsets.UTF_8);
+			
+		} catch (IOException e) {}
+		return null;
+	}
 
 }

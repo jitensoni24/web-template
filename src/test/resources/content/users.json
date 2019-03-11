@@ -1,0 +1,19 @@
+[{
+	"id": 1,
+	"name": "Lorem",
+	"username": "Bret",
+	"email": "abc@april.biz",
+	"phone": "1-770-736-1111 x56442"
+}, {
+	"id": 2,
+	"name": "Ervin",
+	"username": "Antonette",
+	"email": "xyz@april.biz",
+	"phone": "1-770-736-2222 x56442"
+}, {
+	"id": 3,
+	"name": "Ipsum",
+	"username": "Ipsum",
+	"email": "pqr@april.biz",
+	"phone": "1-770-736-3333 x56442"
+}]
