@@ -10,7 +10,7 @@
 * message - properties
 * database - jdbc, jndi?
 * flyway - 
-* rest-api
+* resttest
 * swagger
 * oauth
 * docker
