@@ -36,9 +36,11 @@ public class UserService {
     }
 
     public UserResource get(Long id) {
-        UserResource userResource = new UserResource();
-        userResource.setUsername(faker.name().firstName());
-        return userResource;
+        
+        ResponseEntity<UserResource> user =
+                restTemplate.exchange(url+"/"+id, HttpMethod.GET, null, UserResource.class);
+        
+        return user.getBody();
     }
 
     public UserResource create(UserResource userResource) {

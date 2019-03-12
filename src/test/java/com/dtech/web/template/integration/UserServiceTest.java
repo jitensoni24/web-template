@@ -1,6 +1,9 @@
 package com.dtech.web.template.integration;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertThat;
 import static org.springframework.test.web.client.ExpectedCount.once;
+import static org.springframework.test.web.client.ExpectedCount.times;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withStatus;
 
@@ -54,28 +57,49 @@ public class UserServiceTest {
     @Test
     public void testGetAll() throws Exception {
         //what will json response look like (i.e http get/post, body, contenttype etc), use responsecreator to define that
-		DefaultResponseCreator response = withStatus(HttpStatus.OK)
-											.body(getResourceAsString("content/users.json").getBytes())
-											.contentType(MediaType.APPLICATION_JSON_UTF8);
-		
+        DefaultResponseCreator response = withStatus(HttpStatus.OK).body(getResourceAsString("content/users.json").getBytes()).contentType(MediaType.APPLICATION_JSON_UTF8);
+
         mockRestServer.expect(once(), requestTo(url)).andRespond(response);
 
-        
-        List<UserResource> result = userService.get();
-        result.forEach(System.out::println);
+        List<UserResource> users = userService.get();
+        users.forEach(System.out::println);
 
-        
         //finally verify 
         mockRestServer.verify();
     }
 
-	private String getResourceAsString(String contentPath) {
-		try {
-			
-			return IOUtils.toString(Resources.getResource(contentPath), StandardCharsets.UTF_8);
-			
-		} catch (IOException e) {}
-		return null;
-	}
+    @Test
+    public void getUserById() throws Exception {
+        //create response
+        DefaultResponseCreator response =
+                withStatus(HttpStatus.OK)
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .body(getResourceAsString("content/users-1.json").getBytes());
+        
+        //setmockserver
+        mockRestServer
+            .expect(times(1), requestTo(url + "/" + 1))
+            .andRespond(response);
+        
+        //invoke service call
+        UserResource user = userService.get(1l);
+        System.out.println(user);
+        
+        //verify
+        mockRestServer.verify();
+        
+        //assert the result is correct and as expected
+        assertThat(user.getUsername(), equalTo("Bret"));
+    }
+
+    private String getResourceAsString(String contentPath) {
+        try {
+
+            return IOUtils.toString(Resources.getResource(contentPath), StandardCharsets.UTF_8);
+
+        } catch (IOException e) {
+        }
+        return null;
+    }
 
 }
