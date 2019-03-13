@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -19,7 +18,6 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 
 @Configuration
 @ComponentScan("com.dtech.web.template")
-@PropertySource(value = "classpath:application.properties", ignoreResourceNotFound = true)
 //This can also be named as spring config 
 //We can create another configuration file if we have our project specific bean definitions
 public class ApplicationConfig extends WebMvcConfigurationSupport {
