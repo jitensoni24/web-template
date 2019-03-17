@@ -15,6 +15,8 @@ public class WebInitializer implements WebApplicationInitializer {
         context.register(ApplicationConfig.class);
         context.setServletContext(servletContext);
 
+        //Read the environement from system where the app is running else pick local/dev etc
+        context.getEnvironment().setActiveProfiles("local");
         
         Dynamic servlet = servletContext.addServlet("dispatcher", new DispatcherServlet(context));
         servlet.addMapping("/");

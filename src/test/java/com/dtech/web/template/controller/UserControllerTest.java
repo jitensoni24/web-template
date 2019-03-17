@@ -1,9 +1,5 @@
 package com.dtech.web.template.controller;
 
-import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
-
-@RunWith(MockitoJUnitRunner.class)
 public class UserControllerTest {
     
     public void testGetAll() throws Exception {
