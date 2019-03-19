@@ -13,4 +13,5 @@ public class PropertiesConfig {
     @com.dtech.web.template.environment.Prod
     @PropertySource(value = "classpath:application-prod.properties")
     public static class Prod {}
+    
 }
