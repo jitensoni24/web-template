@@ -5,23 +5,15 @@
 * Basic spring mvc rest api (**base version**)
 * Can be used as an initial web template
  
-> version sequence 
+> branch 
 * initial
-* message - properties
-* database - jdbc, jndi?
-* flyway - 
-* rest-api
-* swagger
-* oauth
-* docker
-* ??
+* profiles
 
 
 #### Clone Repository
 ```
 https://github.com/<username>/web-template.git
 ```
-
 
 ## Docker
 
