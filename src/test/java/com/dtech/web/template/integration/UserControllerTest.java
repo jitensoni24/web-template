@@ -14,7 +14,6 @@ public class UserControllerTest {
         
     }
     
-    
     @Test
     public void testGet() throws Exception {
         
