@@ -28,10 +28,9 @@ public class UserRepository {
 			
 			Root<User> root = query.from(User.class);
 			CriteriaQuery<User> all = query.select(root);
-					
 			List<User> resultList = em.createQuery(all).getResultList();
 			
-			return  resultList;
+			return resultList;
 			
 		} catch (NoResultException e) {
 			throw new NoResultException("constraint.user.not.found");
