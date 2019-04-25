@@ -1,43 +1,44 @@
 package com.dtech.web.template.service;
 
-import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dtech.web.template.exception.NotFoundException;
+import com.dtech.web.template.mapper.BeanMapper;
+import com.dtech.web.template.repository.UserRepository;
 import com.dtech.web.template.resource.UserResource;
-import com.github.javafaker.Faker;
 
 @Service
 public class UserService {
     
-    Faker faker = new Faker();
+    @Autowired
+    private UserRepository repository;
+
+    @Autowired
+    private BeanMapper beanMapper;
     
     public List<UserResource> get() {
-        UserResource userResource = new UserResource();
-        userResource.setUsername(faker.name().firstName());
-        return Arrays.asList(userResource);
+		
+    	List<UserResource> users = beanMapper.mapAsList(repository.get(), UserResource.class);
+		
+		return users;
     }
 
     public UserResource get(Long id) {
-        UserResource userResource = new UserResource();
-        userResource.setUsername(faker.name().firstName());
-        return userResource;
+		return null;
     }
 
     public UserResource create(UserResource userResource) {
-        userResource.setUsername(faker.name().firstName());
-        return userResource;
+		return userResource;
     }
 
     public UserResource update(Long id, UserResource userResource) {
-        userResource.setUsername(faker.name().firstName());
-        return userResource;
+		return userResource;
     }
 
     public void delete(Long id) throws NotFoundException {
-        throw new NotFoundException(faker.lorem().fixedString(20));
     }
 
     public UserResource whoAmI() {

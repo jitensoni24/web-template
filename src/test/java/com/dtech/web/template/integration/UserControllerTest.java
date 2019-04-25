@@ -1,37 +1,27 @@
 package com.dtech.web.template.integration;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import org.junit.Test;
+import org.springframework.http.MediaType;
 
-public class UserControllerTest {
-    
-    @Test
-    public void testGetAll() throws Exception {
-        
-    }
-        
-    @Test
-    public void testWhoAmI() throws Exception {
-        
-    }
-    
-    
-    @Test
-    public void testGet() throws Exception {
-        
-    }
+import com.dtech.web.template.builder.UserFactory;
+import com.dtech.web.template.entity.User;
 
-    @Test
-    public void testCreate() throws Exception {
-        
-    }
+public class UserControllerTest extends IntegrationTest {
 
-    @Test
-    public void testUpdate() throws Exception  {
-        
-    }
+	@Test
+	public void getUsers() throws Exception {
+		User user = UserFactory.user();
+		em.persist(user);
 
-    @Test
-    public void testDelete() throws Exception  {
-        
-    }
+		mockMvc.perform(get("/users"))
+			.andDo(print())
+			.andExpect(status().isOk())
+			.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
+	}
+
 }
