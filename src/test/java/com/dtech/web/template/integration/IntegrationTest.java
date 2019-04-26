@@ -1,5 +1,8 @@
 package com.dtech.web.template.integration;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -16,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.dtech.web.template.config.ApplicationConfig;
+import com.google.common.io.Resources;
 
 @ActiveProfiles("unit-test")
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -26,14 +30,18 @@ public abstract class IntegrationTest {
 
 	@PersistenceContext
 	protected EntityManager em;
-	
+
 	protected MockMvc mockMvc;
-	
+
 	@Autowired
 	private WebApplicationContext context;
-	
+
 	@Before
 	public void setUp() {
 		mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
+	}
+
+	protected String getResourceAsString(String url) throws IOException {
+		return Resources.toString(Resources.getResource(url), StandardCharsets.UTF_8);
 	}
 }

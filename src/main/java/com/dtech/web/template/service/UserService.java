@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dtech.web.template.entity.User;
 import com.dtech.web.template.exception.NotFoundException;
 import com.dtech.web.template.mapper.BeanMapper;
 import com.dtech.web.template.repository.UserRepository;
@@ -31,7 +32,10 @@ public class UserService {
     }
 
     public UserResource create(UserResource userResource) {
-		return userResource;
+    	
+    	User user = repository.create(beanMapper.map(userResource, User.class));
+    	
+		return beanMapper.map(user, UserResource.class);
     }
 
     public UserResource update(Long id, UserResource userResource) {
