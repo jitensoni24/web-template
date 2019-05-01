@@ -1,0 +1,26 @@
+{
+	"scenarioName": "Invoke the USER GET api and assert the response",
+	"steps": [{
+		"name": "get_user",
+		"url": "users/1",
+		"operation": "GET",
+		"request": {
+			"headers": {
+				"Content-Type": "application/json; charset=utf-8"
+			}
+		},
+		"assertions": {
+			"status": 200,
+			"headers": {
+				"Content-Type": "application/json; charset=utf-8"
+			},
+			"body": {
+				"id": 1,
+				"active": true,
+				"username": "jitendra.soni",
+				"email": "abc@gmail.com",
+				"password": "$NULL"
+			}
+		}
+	}]
+}

@@ -1,0 +1,25 @@
+{
+	"scenarioName": "Invoke the USER POST api and assert the response",
+	"steps": [
+		{
+			"name": "create_user",
+			"url": "/users",
+			"operation": "POST",
+			"request": {
+				"headers": {
+					"Content-Type": "application/json; charset=utf-8"
+				},
+				"body": {
+					"id": 2,
+					"active": true,
+					"username": "adriana.sporer",
+					"email": "delois.steuber@example.com",
+					"password": "abcd"
+				}
+			},
+			"assertions": {
+				"status": 201
+			}
+		}
+	]
+}

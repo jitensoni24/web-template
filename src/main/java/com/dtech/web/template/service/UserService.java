@@ -28,7 +28,11 @@ public class UserService {
     }
 
     public UserResource get(Long id) {
-		return null;
+		return beanMapper.map(repository.get(id), UserResource.class);
+    }
+
+    public UserResource get(String username) {
+		return beanMapper.map(repository.get(username), UserResource.class);
     }
 
     public UserResource create(UserResource userResource) {

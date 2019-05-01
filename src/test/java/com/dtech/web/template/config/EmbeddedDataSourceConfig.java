@@ -7,6 +7,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
+import com.dtech.web.template.environment.UnitTest;
+
+@UnitTest
 @Configuration
 public class EmbeddedDataSourceConfig {
     @Bean

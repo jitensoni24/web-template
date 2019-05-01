@@ -1,0 +1,21 @@
+Place the database migration scripts in this directory. Try to keep the scripts fine grained per defined version
+and only group changes related to the same table or to changes that belongs to the same logical functionality. 
+
+
+The adopted naming convention is:
+
+V<MAJOR>.<MINOR>__<SHORT_DESCRIPTION>.sql
+
+<MAJOR> is the data-set version and we start from 1 in current version
+<MINOR> is the sequential counter for each individual change belonging to this data-set
+
+
+Example:
+
+V1.1__ADD_NAV_GROUP_ID.sql
+
+
+Baseline version is 1 so the first migration will have version V1.1
+
+
+

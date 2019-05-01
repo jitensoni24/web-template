@@ -42,12 +42,26 @@ public class UserController {
         return userService.whoAmI();
     }
     
-    
+    //TODO fix this method
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public UserResource get(@PathVariable Long id) {
         System.out.println(messageSource.getMessage("user.greeting.msg", new Long[] {id}, Locale.getDefault()));
-        return userService.get(id);
+        
+        UserResource userResource = userService.get(id);
+        
+		return userResource;
+    }
+    
+    //TODO fix this method 
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "/name/{username}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public UserResource get(@PathVariable String username) {
+        System.out.println(messageSource.getMessage("user.greeting.msg", new String[] {username}, Locale.getDefault()));
+        
+        UserResource userResource = userService.get(username);
+        
+		return userResource;
     }
 
     @ResponseStatus(HttpStatus.CREATED)

@@ -37,6 +37,24 @@ public class UserRepository {
 		}
 	}
 	
+	public User get(Long id) {
+        try{
+            CriteriaBuilder builder = em.getCriteriaBuilder();
+            
+            CriteriaQuery<User> query = builder.createQuery(User.class);
+            
+            Root<User> root = query.from(User.class);
+            
+            Predicate condition = builder.equal(builder.lower(root.<String>get("id")), id);
+            
+            query.where(condition);
+
+            return em.createQuery(query).getSingleResult();            
+        } catch (NoResultException e) {
+            throw new NoResultException("constraint.user.not.found");
+        }
+    }
+	
 	public User get(String username) {
         try{
             CriteriaBuilder builder = em.getCriteriaBuilder();

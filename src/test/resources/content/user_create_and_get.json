@@ -1,0 +1,45 @@
+{
+	"scenarioName": "Invoke the USER GET api and assert the response",
+	"steps": [
+		{
+			"name": "create_user",
+			"url": "/users",
+			"operation": "POST",
+			"request": {
+				"headers": {
+					"Content-Type": "application/json; charset=utf-8"
+				},
+				"body": {
+					"active": true,
+					"id": 1,
+					"username": "adriana.sporer",
+					"email": "delois.steuber@example.com",
+					"password": "abcd"
+				}
+			},
+			"assertions": {
+				"status": 201
+			}
+		},
+		{
+			"name": "get_user_details",
+			"url": "/users/${create_user.response.body.id}",
+			"operation": "GET",
+			"request": {
+				"headers": {
+					"Content-Type": "application/json; charset=utf-8"
+				}
+			},
+			"assertions": {
+				"status": 200,
+				"body": {
+					"active": true,
+					"id": 1,
+					"username": "adriana.sporer",
+					"email": "delois.steuber@example.com",
+					"password": "$NULL"
+				}
+			}
+		}
+	]
+}

@@ -3,9 +3,9 @@ package com.dtech.web.template.config;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
-import com.dtech.web.template.environment.UnitTest;
+import com.dtech.web.template.environment.Local;
 
-@UnitTest
+@Local
 @Configuration
 @PropertySource({
     "classpath:/env/unit-test/application.properties",
