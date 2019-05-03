@@ -12,6 +12,10 @@ public class ZerocodeTomCatRunner  extends ZeroCodeUnitRunner {
 
     public ZerocodeTomCatRunner(Class<?> klass) throws InitializationError {
         super(klass);
+        startWebApp();
+    }
+
+    private void startWebApp() {
         tomcat = TomcatWebServer.createWebAAppWith(PORT, CONTEXT);
         try {
             tomcat.start();

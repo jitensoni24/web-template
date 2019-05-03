@@ -21,12 +21,12 @@ public class UserControllerZeroCodeTomcatRunnerTest {
 
     @Test
     @JsonTestCase("content/user_get.json")
-    public void get_user1() throws Exception {
+    public void get_user() throws Exception {
     }
 
     @Test
     @JsonTestCase("content/user_create_and_get.json")
-    public void get_user2() throws Exception {
+    public void post_n_get_user() throws Exception {
     }
 
 }
