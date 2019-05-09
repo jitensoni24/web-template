@@ -11,10 +11,7 @@
 				},
 				"body": {
 					"active": true,
-					"id": 1,
-					"username": "adriana.sporer",
-					"email": "delois.steuber@example.com",
-					"password": "abcd"
+					"username": "adriana"
 				}
 			},
 			"assertions": {
@@ -23,21 +20,15 @@
 		},
 		{
 			"name": "get_user_details",
-			"url": "/users/${create_user.response.body.id}",
+			"url": "/users/v1/name/${$.create_user.request.body.username}",
 			"operation": "GET",
-			"request": {
-				"headers": {
-					"Content-Type": "application/json; charset=utf-8"
-				}
-			},
+			"request": {},
 			"assertions": {
 				"status": 200,
 				"body": {
-					"active": true,
-					"id": 1,
-					"username": "adriana.sporer",
-					"email": "delois.steuber@example.com",
-					"password": "$NULL"
+					"active" : true,
+					"username" : "adriana",
+					"email" : "abc@gmail.com"
 				}
 			}
 		}
