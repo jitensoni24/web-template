@@ -11,10 +11,7 @@ public class TomcatWebServer {
         Tomcat tomcat = new Tomcat();
         tomcat.setPort(port);
         try {
-            StandardContext ctx = (StandardContext) tomcat.addWebapp(
-                    context,
-                    new File(webAppDirLocation).getAbsolutePath()
-            );
+            StandardContext ctx = (StandardContext) tomcat.addWebapp(context, new File(webAppDirLocation).getAbsolutePath());
             tomcat.start();
         } catch (Exception e) {
             throw new RuntimeException(e);
