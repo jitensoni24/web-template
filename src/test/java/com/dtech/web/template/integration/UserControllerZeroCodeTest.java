@@ -1,11 +1,10 @@
 package com.dtech.web.template.integration;
 
-import com.dtech.web.template.testtomcat.TomcatWebServer;
-import java.io.File;
 import java.io.IOException;
+
 import javax.servlet.ServletException;
+
 import org.apache.catalina.LifecycleException;
-import org.apache.catalina.core.StandardContext;
 import org.apache.catalina.startup.Tomcat;
 import org.jsmart.zerocode.core.domain.JsonTestCase;
 import org.jsmart.zerocode.core.domain.TargetEnv;
@@ -15,6 +14,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.dtech.web.template.testtomcat.TomcatWebServer;
 
 @TargetEnv("local-host.properties")
 @RunWith(ZeroCodeUnitRunner.class)
