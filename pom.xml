@@ -27,7 +27,7 @@
 		<jsonpath.version>2.2.0</jsonpath.version>
 		<json.version>20180130</json.version>
 		<mockito.version>1.10.19</mockito.version>
-		<junit.version>4.12</junit.version>
+		<junit.version>4.13.1</junit.version>
 		<hsqldb.version>2.3.3</hsqldb.version>
 		<java.faker.version>0.17.2</java.faker.version>
 
