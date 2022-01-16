@@ -1,10 +1,12 @@
 package com.dtech.web.template.controller;
 
 import java.util.List;
+import java.util.Locale;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dtech.web.template.exception.InvalidArgumentException;
 import com.dtech.web.template.resource.UserResource;
 import com.dtech.web.template.service.UserService;
 
@@ -23,6 +26,9 @@ public class UserController {
     
     @Autowired
     private UserService userService;
+    
+    @Autowired
+    private MessageSource messageSource;
 
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -40,6 +46,7 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public UserResource get(@PathVariable Long id) {
+        System.out.println(messageSource.getMessage("user.greeting.msg", new Long[] {id}, Locale.getDefault()));
         return userService.get(id);
     }
 
@@ -58,6 +65,6 @@ public class UserController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public void delete(@PathVariable Long id) {
-        userService.delete(id);
+        throw new InvalidArgumentException("invalid.argument", "id", id);
     }
 }

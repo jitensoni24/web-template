@@ -41,3 +41,18 @@ docker login --username <username> https://hub.docker.com/
 docker build --pull --no-cache -t https://hub.docker.com/web-template:<VERSION> .
 docker push https://hub.docker.com/web-template:<VERSION>
 ```
+
+### GIT credential and git ignore updated
+stored credentials using following
+```  
+git config --global credential.helper store
+```
+You can add a global .gitignore file that defines rules for adding files to ignore. This configuration can be done in the following way:
+
+@link: https://www.educative.io/edpresso/how-to-add-a-file-to-gitignore-on-github
+1. Create a .gitignore_global file on the computer.
+2. Open Terminal.
+3. Configure git to use this file as .gitignore for all repositories by using the command:
+```
+git config --global core.excludesfile PATH
+```
