@@ -10,7 +10,6 @@ public class UserControllerTest {
         
     }
     
-    
     public void testGet() throws Exception {
         
     }
